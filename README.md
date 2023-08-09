@@ -58,7 +58,25 @@
 sudo apt install isc-dhcp-server 
 ```
 *Настройки в файле конфигурации /etc/dhcp/dhcpd.conf*
-```sudo nano /etc/dhcp/dhcpd.conf
+```
+sudo nano /etc/dhcp/dhcpd.conf
+```
+```
+subnet 192.168.0.0 netmask 255.255.255.0 {
+
+  range 192.168.0.2 192.168.0.254;
+
+  option domain-name-servers 8.8.8.8;
+
+  option domain-name "demin-net.local";
+
+  option routers 192.168.0.1;
+
+  default-lease-time 600;
+
+  max-lease-time 7200;
+
+}
 ```
 ---
 
