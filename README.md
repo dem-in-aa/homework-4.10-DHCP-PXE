@@ -166,7 +166,21 @@ sudo rm /var/run/dhcpd.pid
 
 авг 09 20:19:39 DEBIAN-11x64 systemd[1]: Started LSB: DHCP server.
 
+```
+*Настройка файла конфигурации сетевого адаптера клиентского хоста:*
+```
+sudo nano /etc/network/interfaces
+```
+```
+auto enp0s3
 
+allow-hotplug enp0s3
+
+iface enp0s3 inet dhcp
+```
+*Рестарт сетевого адаптера клиентского хоста для применения настроек:*
+```
+sudo /etc/init.d/networking restart
 ```
 ---
 
