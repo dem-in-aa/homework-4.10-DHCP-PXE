@@ -111,7 +111,63 @@ INTERFACESv4="enp0s3"
 
 INTERFACESv6=""
 ```
+*Рестарт сервиса:*
+```
+sudo systemctl restart isc-dhcp-server
+```
+*Просмотр статуса:*
+```
+sudo systemctl status isc-dhcp-server
+```
+*Если сервер не стартовал, смотрим журнал:*
+```
+sudo journalctl --unit isc-dhcp-server
+```
+*В моем случае проблема решена удалением файла процесса:*
+```
+sudo rm /var/run/dhcpd.pid
+```
+```
+● isc-dhcp-server.service - LSB: DHCP server
 
+     Loaded: loaded (/etc/init.d/isc-dhcp-server; generated)
+
+     Active: active (running) since Wed 2023-08-09 20:19:39 +06; 1min 7s ago
+
+       Docs: man:systemd-sysv-generator(8)
+
+    Process: 5667 ExecStart=/etc/init.d/isc-dhcp-server start (code=exited, status=0/SUCCESS)
+
+      Tasks: 12 (limit: 2316)
+
+     Memory: 17.2M
+
+        CPU: 36ms
+
+     CGroup: /system.slice/isc-dhcp-server.service
+
+             ├─4438 /usr/sbin/dhcpd -4 -q -cf /etc/dhcp/dhcpd.conf
+
+             ├─5572 /usr/sbin/dhcpd -4 -q -cf /etc/dhcp/dhcpd.conf enp0s3
+
+             └─5683 /usr/sbin/dhcpd -4 -q -cf /etc/dhcp/dhcpd.conf enp0s3
+
+
+
+авг 09 20:19:37 DEBIAN-11x64 systemd[1]: Starting LSB: DHCP server...
+
+авг 09 20:19:37 DEBIAN-11x64 isc-dhcp-server[5667]: Launching IPv4 server only.
+
+авг 09 20:19:37 DEBIAN-11x64 dhcpd[5683]: Wrote 1 leases to leases file.
+
+авг 09 20:19:37 DEBIAN-11x64 dhcpd[5683]: Server starting service.
+
+авг 09 20:19:39 DEBIAN-11x64 isc-dhcp-server[5667]: Starting ISC DHCPv4 server: dhcpd.
+
+авг 09 20:19:39 DEBIAN-11x64 systemd[1]: Started LSB: DHCP server.
+
+
+```
 ---
 
 ## Дополнительные задания (со звездочкой*)
